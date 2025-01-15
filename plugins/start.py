@@ -110,7 +110,7 @@ async def start_command(client: Client, message: Message):
                         pass
                 if (SECONDS == 0):
                     return
-                notification_msg = await message.reply(f"<b>🌺 <u>Notice</u> 🌺</b>\n\n<b>This file will be  deleted in {get_exp_time(SECONDS)}. Please save or forward it to your saved messages before it gets deleted.</b>")
+                notification_msg = await message.reply(f"<b>🍀 <u>Notice</u> 🍀</b>\n\n<b>This file will be  deleted in {get_exp_time(SECONDS)}. Please save or forward it to your saved messages before it gets deleted.</b>")
                 await asyncio.sleep(SECONDS)    
                 for snt_msg in snt_msgs:    
                     try:    
@@ -173,7 +173,7 @@ async def start_command(client: Client, message: Message):
                 if snt_msgs:
                     if (SECONDS == 0):
                         return
-                    notification_msg = await message.reply(f"<b>🌺 <u>Notice</u> 🌺</b>\n\n<b>This file will be  deleted in {get_exp_time(SECONDS)}. Please save or forward it to your saved messages before it gets deleted.</b>")
+                    notification_msg = await message.reply(f"<b>🍀 <u>Notice</u> 🍀</b>\n\n<b>This file will be  deleted in {get_exp_time(SECONDS)}. Please save or forward it to your saved messages before it gets deleted.</b>")
                     await asyncio.sleep(SECONDS)    
                     for snt_msg in snt_msgs:    
                         try:    
@@ -319,13 +319,13 @@ async def not_joined(client: Client, message: Message):
 @Bot.on_message(filters.command('ch2l') & filters.private)
 async def gen_link_encoded(client: Bot, message: Message):
     try:
-        hash = await client.ask(text="Enter the code here... \n /cancel to cancel the operation",chat_id = message.from_user.id, timeout=60)
+        hash = await client.ask(text="<blockquote>Enter the code here... \n /cancel to cancel the operation</blockquote>",chat_id = message.from_user.id, timeout=60)
     except Exception as e:
         print(e)
-        await hash.reply(f"😔 some error occurred {e}")
+        await hash.reply(f"<blockquote>😔 some error occurred {e}</blockquote>")
         return
     if hash.text == "/cancel":
-        await hash.reply("Cancelled 😉!")
+        await hash.reply("<blockquote>Cancelled 😉!</blockquote>")
         return
     link = f"https://t.me/{client.username}?start={hash.text}"
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("🎉 Click Here ", url=link)]])
@@ -337,7 +337,7 @@ async def gen_link_encoded(client: Bot, message: Message):
 async def get_users(client: Bot, message: Message):
     msg = await client.send_message(chat_id=message.chat.id, text=WAIT_MSG)
     users = await full_userbase()
-    await msg.edit(f"{len(users)} users are using this bot 👥")
+    await msg.edit(f"<blockquote>{len(users)} users are using this bot 👥</blockquote>")
     return
 
 @Bot.on_message(filters.private & filters.command('broadcast') & filters.user(ADMINS))
@@ -371,13 +371,13 @@ async def send_text(client: Bot, message: Message):
                 pass
             total += 1
 
-        status = f"""<b><u>Broadcast Completed 🟢</u>
+        status = f"""<b><u><blockquote>Broadcast Completed 🟢</u>
                 
                 Total Users: <code>{total}</code>
                 Successful: <code>{successful}</code>
                 Blocked Users: <code>{blocked}</code>
                 Deleted Accounts: <code>{deleted}</code>
-                Unsuccessful: <code>{unsuccessful}</code></b>"""
+                Unsuccessful: <code>{unsuccessful}</code></blockquote></b>"""
 
         return await pls_wait.edit(status)
 
@@ -394,7 +394,7 @@ async def auth_command(client: Bot, message: Message):
         text=f"Message for @{OWNER_TAG}\n<code>{message.from_user.id}</code>\n/add_admin <code>{message.from_user.id}</code> 🤫",
     )
 
-    await message.reply("Please wait for verification from the owner. 🫣")
+    await message.reply("<blockquote>Please wait for verification from the owner. 🫣</blockquote>")
     return
 
 
@@ -402,34 +402,34 @@ async def auth_command(client: Bot, message: Message):
 async def command_add_admin(client: Bot, message: Message):
     while True:
         try:
-            admin_id = await client.ask(text="Enter admin id 🔢\n /cancel to cancel : ",chat_id = message.from_user.id, timeout=60)
+            admin_id = await client.ask(text="<blockquote>Enter admin id 🔢</blockquote>\n<blockquote> /cancel to cancel :</blockquote>",chat_id = message.from_user.id, timeout=60)
         except Exception as e:
             print(e)
             return
         if admin_id.text == "/cancel":
-            await admin_id.reply("Cancelled 😉!")
+            await admin_id.reply("</blockquote>Cancelled 😉!</blockquote>")
             return
         try:
             await Bot.get_users(user_ids=admin_id.text, self=client)
             break
         except:
-            await admin_id.reply("❌ Error 😖\n\nThe admin id is incorrect.", quote = True)
+            await admin_id.reply("<blockquote>❌ Error 😖</blockquote>\n\n<blockquote>The admin id is incorrect.</blockquote>", quote = True)
             continue
     if not await present_admin(admin_id.text):
         try:
             await add_admin(admin_id.text)
-            await message.reply(f"Added admin <code>{admin_id.text}</code> 😼")
+            await message.reply(f"<blockquote>Added admin <code>{admin_id.text}</code> 😼</blockquote>")
             try:
                 await client.send_message(
                     chat_id=admin_id.text,
-                    text=f"You are verified, ask the owner to add them to db channels. 😁"
+                    text=f"<blockquote>You are verified, ask the owner to add them to db channels. 😁</blockquote>"
                 )
             except:
-                await message.reply("Failed to send invite. Please ensure that they have started the bot. 🥲")
+                await message.reply("<blockquote>Failed to send invite. Please ensure that they have started the bot. 🥲</blockquote>")
         except:
-            await message.reply("Failed to add admin. 😔\nSome error occurred.")
+            await message.reply("<blockquote>Failed to add admin. 😔\nSome error occurred.</blockquote>")
     else:
-        await message.reply("admin already exist. 💀")
+        await message.reply("<blockquote>admin already exist. 💀</blockquote>")
     return
 
 
@@ -437,53 +437,53 @@ async def command_add_admin(client: Bot, message: Message):
 async def delete_admin_command(client: Bot, message: Message):
     while True:
         try:
-            admin_id = await client.ask(text="Enter admin id 🔢\n /cancel to cancel : ",chat_id = message.from_user.id, timeout=60)
+            admin_id = await client.ask(text="<blockquote>Enter admin id 🔢</blockquote>\n /cancel to cancel : ",chat_id = message.from_user.id, timeout=60)
         except:
             return
         if admin_id.text == "/cancel":
-            await admin_id.reply("Cancelled 😉!")
+            await admin_id.reply("<blockquote>Cancelled 😉!</blockquote>")
             return
         try:
             await Bot.get_users(user_ids=admin_id.text, self=client)
             break
         except:
-            await admin_id.reply("❌ Error\n\nThe admin id is incorrect.", quote = True)
+            await admin_id.reply("<blockquote>❌ Error</blockquote>\n\n<blockquote>The admin id is incorrect.</blockquote>", quote = True)
             continue
     if await present_admin(admin_id.text):
         try:
             await del_admin(admin_id.text)
-            await message.reply(f"Admin <code>{admin_id.text}</code> removed successfully 😀")
+            await message.reply(f"<blockquote>Admin <code>{admin_id.text}</code> removed successfully 😀</blockquote>")
         except Exception as e:
             print(e)
-            await message.reply("Failed to remove admin. 😔\nSome error occurred.")
+            await message.reply("<blockquote>Failed to remove admin. 😔</blockquote>\n<blockquote>Some error occurred.</blockquote>")
     else:
-        await message.reply("admin doesn't exist. 💀")
+        await message.reply("<blockquote>admin doesn't exist. 💀</blockquote>")
     return
 
 @Bot.on_message(filters.command('admins')  & filters.private & filters.private)
 async def admin_list_command(client: Bot, message: Message):
     admin_list = await full_adminbase()
-    await message.reply(f"Full admin list 📃\n<code>{admin_list}</code>")
+    await message.reply(f"<blockquote>Full admin list 📃\n<code>{admin_list}</code></blockquote>")
     return
 
 @Bot.on_message(filters.command('ping')  & filters.private)
 async def check_ping_command(client: Bot, message: Message):
     start_t = time.time()
-    rm = await message.reply_text("Pinging....", quote=True)
+    rm = await message.reply_text("<blockquote>Pinging....</blockquote>", quote=True)
     end_t = time.time()
     time_taken_s = (end_t - start_t) * 1000
-    await rm.edit(f"Ping 🔥!\n{time_taken_s:.3f} ms")
+    await rm.edit(f"<blockquote>Ping 🔥!\n{time_taken_s:.3f} ms</blockquote>")
     return
 
 
 @Client.on_message(filters.private & filters.command('restart') & filters.user(ADMINS))
 async def restart(client, message):
     msg = await message.reply_text(
-        text="<i>Trying To Restarting.....</i>",
+        text="<i><blockquote>Trying To Restarting.....</blockquote></i>",
         quote=True
     )
     await asyncio.sleep(5)
-    await msg.edit("<i>Server Restarted Successfully ✅</i>")
+    await msg.edit("<i><blockquote>Server Restarted Successfully ✅</blockquote></i>")
     try:
         os.execl(sys.executable, sys.executable, *sys.argv)
     except Exception as e:
@@ -495,28 +495,28 @@ if USE_PAYMENT:
     async def add_user_premium_command(client: Bot, message: Message):
         while True:
             try:
-                user_id = await client.ask(text="Enter id of user 🔢\n /cancel to cancel : ",chat_id = message.from_user.id, timeout=60)
+                user_id = await client.ask(text="<blockquote>Enter id of user 🔢</blockquote>\n /cancel to cancel : ",chat_id = message.from_user.id, timeout=60)
             except Exception as e:
                 print(e)
                 return  
             if user_id.text == "/cancel":
-                await user_id.edit("Cancelled 😉!")
+                await user_id.edit("<blockquote>Cancelled 😉!</blockquote>")
                 return
             try:
                 await Bot.get_users(user_ids=user_id.text, self=client)
                 break
             except:
-                await user_id.edit("❌ Error 😖\n\nThe admin id is incorrect.", quote = True)
+                await user_id.edit("<blockquote>❌ Error 😖</blockquote>\n\n<blockquote>The admin id is incorrect.</blockquote>", quote = True)
                 continue
         user_id = int(user_id.text)
         while True:
             try:
-                timeforprem = await client.ask(text="Enter the amount of time you want to provide the premium \nChoose correctly. Its not reversible.\n\n⁕ <code>1</code> for 7 days.\n⁕ <code>2</code> for 1 Month\n⁕ <code>3</code> for 3 Month\n⁕ <code>4</code> for 6 Month\n⁕ <code>5</code> for 1 year.🤑", chat_id=message.from_user.id, timeout=60)
+                timeforprem = await client.ask(text="<blockquote>Enter the amount of time you want to provide the premium \nChoose correctly. Its not reversible.\n\n⁕ <code>1</code> for 7 days.\n⁕ <code>2</code> for 1 Month\n⁕ <code>3</code> for 3 Month\n⁕ <code>4</code> for 6 Month\n⁕ <code>5</code> for 1 year.🤑</blockquote>", chat_id=message.from_user.id, timeout=60)
             except Exception as e:
                 print(e)
                 return
             if not int(timeforprem.text) in [1, 2, 3, 4, 5]:
-                await message.reply("You have given wrong input. 😖")
+                await message.reply("<blockquote>You have given wrong input. 😖</blockquote>")
                 continue
             else:
                 break
@@ -533,14 +533,14 @@ if USE_PAYMENT:
             timestring = "1 year"
         try:
             await increasepremtime(user_id, timeforprem)
-            await message.reply("Premium added! 🤫")
+            await message.reply("<blockquote>Premium added! 🤫</blockquote>")
             await client.send_message(
             chat_id=user_id,
-            text=f"Update for you\n\nPremium plan of {timestring} added to your account. 🤫",
+            text=f"<blockquote>Update for you</blockquote>\n\n<blockquote>Premium plan of {timestring} added to your account. 🤫</blockquote>",
         )
         except Exception as e:
             print(e)
-            await message.reply("Some error occurred.\nCheck logs.. 😖\nIf you got premium added message then its ok.")
+            await message.reply("<blockquote>Some error occurred.\nCheck logs.. 😖\nIf you got premium added message then its ok.</blockquote>")
         return
 
         
