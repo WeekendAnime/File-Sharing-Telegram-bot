@@ -81,7 +81,7 @@ TUT_VID = os.environ.get("TUT_VID","")
 #put TRUE if you want this feature
 USE_PAYMENT = True if (True if os.environ.get("USE_PAYMENT", "TRUE") == "TRUE" else False) and (USE_SHORTLINK) else False
 #UPI ID
-UPI_ID = os.environ.get("UPI_ID", "clementrajadurai@okhdfcbank")
+UPI_ID = os.environ.get("UPI_ID", "DM @JeffySama")
 #UPI QR CODE IMAGE
 UPI_IMAGE_URL = os.environ.get("UPI_IMAGE_URL", "https://envs.sh/Nc-.jpg")
 #SCREENSHOT URL of ADMIN for verification of payments
