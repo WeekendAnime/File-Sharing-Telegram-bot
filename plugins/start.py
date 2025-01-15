@@ -84,11 +84,11 @@ async def start_command(client: Client, message: Message):
                         ids = [int(int(argument[3]) / abs(client.db_channel.id))]
                     except:
                         return
-                temp_msg = await message.reply("Please wait... 🫷")
+                temp_msg = await message.reply("<blockquote>Please wait... ❤</blockquote>")
                 try:
                     messages = await get_messages(client, ids)
                 except:
-                    await message.reply_text("Something went wrong..! 🥲")
+                    await message.reply_text("<blockquote>Something went wrong baby..! 💔</blockquote>")
                     return
                 await temp_msg.delete()
                 snt_msgs = []
@@ -145,11 +145,11 @@ async def start_command(client: Client, message: Message):
                         ids = [int(int(argument[1]) / abs(client.db_channel.id))]
                     except:
                         return
-                temp_msg = await message.reply("Please wait... 🫷")
+                temp_msg = await message.reply("<blockquote>Please wait... ❤</blockquote>")
                 try:
                     messages = await get_messages(client, ids)
                 except:
-                    await message.reply_text("Something went wrong..! 🥲")
+                    await message.reply_text("<blockquote>Something went wrong baby..! 💔</blockquote>")
                     return
                 await temp_msg.delete()
                 snt_msgs = []
@@ -218,8 +218,8 @@ async def start_command(client: Client, message: Message):
         reply_markup = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("😊 About Me", callback_data="about"),
-                    InlineKeyboardButton("🔒 Close", callback_data="close")
+                    InlineKeyboardButton("About Me", callback_data="about"),
+                    InlineKeyboardButton("Close", callback_data="close")
                 ]
             ]
         )
