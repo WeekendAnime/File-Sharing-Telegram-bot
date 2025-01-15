@@ -10,8 +10,8 @@ import logging
 from logging.handlers import RotatingFileHandler
 
 #force user to join your backup channel leave 0 if you don't need.
-FORCE_SUB_CHANNEL = int(os.environ.get("FORCE_SUB_CHANNEL", "0"))
-FORCE_SUB_CHANNEL2 = int(os.environ.get("FORCE_SUB_CHANNEL2", "0"))
+FORCE_SUB_CHANNEL = int(os.environ.get("FORCE_SUB_CHANNEL", "-1002192780030"))
+FORCE_SUB_CHANNEL2 = int(os.environ.get("FORCE_SUB_CHANNEL2", "-1002076655534"))
 
 if FORCE_SUB_CHANNEL > FORCE_SUB_CHANNEL2:
     temp = FORCE_SUB_CHANNEL2 
@@ -19,7 +19,7 @@ if FORCE_SUB_CHANNEL > FORCE_SUB_CHANNEL2:
     FORCE_SUB_CHANNEL = temp
 
 #bot stats
-BOT_STATS_TEXT = os.environ.get("BOTS_STATS_TEXT","<b><blockquote>BOT UPTIME 🌺</blockquote></b>\n<blockquote>{uptime}</blockquote>")
+BOT_STATS_TEXT = os.environ.get("BOTS_STATS_TEXT","<b><blockquote>BOT UPTIME 🍀</blockquote></b>\n<blockquote>{uptime}</blockquote>")
 #send custom message when user interact with bot
 USER_REPLY_TEXT = os.environ.get("USER_REPLY_TEXT", "<blockquote>Don't send me messages directly I'm only File Share bot! 📌</blockquote>")
 
